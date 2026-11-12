@@ -154,7 +154,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .bub .nm{position:absolute;top:-22px;left:18px;font:700 27px/1.15 'Caveat','Patrick Hand',cursive;color:#5b3fa0;background:var(--tape);padding:1px 18px 0;rotate:-2deg;box-shadow:0 3px 0 rgba(0,0,0,.2)}
 .panel{position:absolute;left:456px;top:108px;width:800px;height:592px;display:flex;flex-direction:column;padding:26px 28px 20px;border:4px solid var(--ink);border-radius:6px 20px 20px 6px;box-shadow:0 8px 0 var(--sh),inset 9px 0 0 rgba(0,0,0,.05);background:linear-gradient(transparent 31px,rgba(63,165,156,.14) 31px) 0 14px/100% 33px,var(--paper);animation:panin .6s cubic-bezier(.3,1.25,.5,1) both}
 @keyframes panin{from{transform:translateX(900px) rotate(6deg)}}
-#pin{flex:1;display:flex;flex-direction:column;min-height:0}
+#pin{flex:1;display:flex;flex-direction:column;min-height:0}#pin>.pp,.m2>.pp{min-height:0;overflow-y:auto}#pin>.row,#pin>.stop,#pin>.bar,#pin>.tabs,#pin>.solve{flex:none}
 .pp{background-color:var(--white);background-image:linear-gradient(transparent calc(100% - 2px),rgba(63,165,156,.3) 0);background-size:100% 1lh;background-origin:content-box;border:3px solid var(--ink);border-radius:5px;padding:14px 18px;font-size:25px;line-height:1.9}
 .kw{font:inherit;background:none;border:0;border-bottom:4px dashed var(--red);padding:0 2px;border-radius:5px;transition:background .2s,transform .15s}
 .kw:hover{background:rgba(255,207,92,.45);transform:scale(1.08)}.kw.f{background:var(--mus);border-bottom-color:transparent}
@@ -166,7 +166,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .lens .hd{position:absolute;left:392px;top:372px;width:170px;height:44px;background:#c98a3c;border:5px solid var(--ink);border-radius:8px 22px 22px 8px;transform:rotate(45deg);transform-origin:0 50%;box-shadow:0 6px 0 var(--sh)}
 .lens .row{position:absolute;left:0;bottom:8px;width:440px}
 /* stage 2 */
-.m2{display:flex;gap:18px;flex:1;min-height:0}.m2 .pp{flex:1;font-size:27px}
+.m2{display:flex;gap:18px;flex:1;min-height:0}.m2 .pp{flex:1;font-size:23px;line-height:1.55;padding:10px 16px}
 .tlb{flex:0 0 150px;display:flex;flex-direction:column;align-items:center}
 .tl{width:92px;padding:12px 0;background:var(--ink);border-radius:22px;display:flex;flex-direction:column;gap:10px;align-items:center;box-shadow:0 6px 0 var(--sh)}
 .tl i{width:58px;height:58px;border-radius:50%;background:#4a3b4e;transition:.2s}
@@ -209,7 +209,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .st{position:relative;text-align:left;font-size:18px;line-height:1.2;background:var(--mus);border:3px solid var(--ink);padding:12px 10px 8px;box-shadow:0 4px 0 var(--sh);rotate:-1deg;transition:transform .15s}
 .st:nth-child(2){background:var(--pink);rotate:1deg}.st:nth-child(3){background:var(--sky)}.st:nth-child(4){background:var(--grn);rotate:1.4deg}
 .st:hover{transform:scale(1.04)}.st.sel{outline:6px solid var(--teal);outline-offset:2px}
-.stm{position:relative;margin-top:22px;font-size:20px;line-height:1.5;padding:8px 14px}
+.stm{position:relative;margin-top:22px;font-size:18px;line-height:1.35;padding:8px 14px}
 .stm .lb{position:absolute;top:-17px;left:12px;font:14px 'Special Elite',monospace;background:var(--ink);color:var(--paper);padding:2px 12px 0;rotate:-1.5deg}
 .solve{margin-top:auto;font:700 26px 'Fredoka',sans-serif;letter-spacing:2px;background:var(--red);color:var(--white);border:4px solid var(--ink);border-radius:999px;padding:9px;box-shadow:0 6px 0 var(--ink);outline:2px dashed rgba(255,253,246,.7);outline-offset:-10px;transition:transform .12s}
 .solve:hover{transform:translateY(-3px) scale(1.01)}.solve:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}
@@ -455,7 +455,7 @@ lv(2,'Case file II · Crossroads',`<div class="m2"><div class="pp" id="rd"></div
 function nx(){if(P.lock){P.mist++;SFX.bad();duckDo('no');return toast('Wait! Count at the sign first.')}
 if(P.i>=P.ch.length)return reward(2,Math.max(4,12-2*P.mist));
 const c=P.ch[P.i++],pu=c.slice(-1),cm=pu==',';
-$('#rd').insertAdjacentHTML('beforeend',c.slice(0,-1)+`<span class="pc ${cm?'c':''}">${pu}</span> `);say(c);
+$('#rd').insertAdjacentHTML('beforeend',c.slice(0,-1)+`<span class="pc ${cm?'c':''}">${pu}</span> `);$('#rd').scrollTop=1e5;say(c);
 P.lock=true;$('#go').textContent='Counting…';const sg=$('#sg');sg.className='stop '+(cm?'c':'s');sg.textContent=cm?'🟡 Slow down… 1':'🛑 STOP! Count 1… 2…';$('#tl').className='tl '+(cm?'y':'r');
 const ms=cm?1400:2400,pb=$('#pb');pb.style.transition='none';pb.style.width='0';setTimeout(()=>{pb.style.transition=`width ${ms}ms linear`;pb.style.width='100%'},30);
 setTimeout(()=>{P.lock=false;const sg=$('#sg');if(!sg)return;beep(900);sg.className='stop';sg.textContent='✅ Go!';$('#tl').className='tl g';$('#go').textContent=P.i>=P.ch.length?'Finish':'Read 👣'},ms+400)}
@@ -467,29 +467,41 @@ function m3r(){const i=M3,rs=R.res[i];pin(`<div class="tabs">${SEN.map((_,k)=>`<
 <div class="row c"><button class="btn b" onclick="lis()">🔊 Listen</button><button class="btn" id="mb" onclick="rec()">${rs?'🔁 Try again':SR&&!R.man[i]?'🎤 Start':'✅ I read it'}</button></div><div class="fbk" id="fb">${rs?rs.fb:''}</div>
 <div class="row end"><button class="btn g" id="fin3" ${Object.keys(R.ok).length==3?'':'disabled'} onclick="reward(3,R.sc.reduce((a,b)=>a+b,0)+3)">Finish</button></div>`)}
 function m3go(k){stopL();hush();M3=k;SFX.tick();m3r()}
-function stopL(){if(LS){const s=LS;LS=null;try{s.r.abort()}catch(e){}mDuck(1)}}
+function relM(s){cancelAnimationFrame(s.raf);try{s.src&&s.src.disconnect()}catch(e){}try{s.stream&&s.stream.getTracks().forEach(t=>t.stop())}catch(e){}s.stream=s.src=null}
+function stopL(){if(LS){const s=LS;LS=null;relM(s);try{s.r.abort()}catch(e){}mDuck(1)}}
+function meter(s){try{mInit();if(!AC)return;AC.resume();s.src=AC.createMediaStreamSource(s.stream);const an=AC.createAnalyser();an.fftSize=512;s.src.connect(an);const d=new Uint8Array(an.fftSize);
+const f=()=>{if(LS!==s||!s.stream)return;an.getByteTimeDomainData(d);let q=0;for(let k=0;k<d.length;k++){const v=(d[k]-128)/128;q+=v*v}const lv=Math.sqrt(q/d.length);s.peak=Math.max(s.peak,lv);if(lv>.03&&!s.heard){s.heard=1;if(!s.fin.length&&!s.interim)stat('👂 I can hear your voice!',1)}
+$$('#h .mic i').forEach((e,k)=>{e.style.animation='none';e.style.height=Math.min(20,5+lv*(170-k*45))+'px'});s.raf=requestAnimationFrame(f)};f()}catch(e){}}
+function micWhy(c,micOk){const fr=self!==top;return c=='audio-capture'?'No microphone was found. Plug one in or switch it on.':c=='network'?'The listening service is not reachable. Check the internet connection, and use Chrome or Edge.':micOk?'Your microphone works, but this browser will not turn speech into words here. Open the game in Chrome or Edge from a web address (https or localhost).':c=='insecure'?'This page is not allowed to use the microphone. Open the game in Chrome or Edge from a web address (https or localhost).':fr?'The microphone is blocked inside this preview window. Download the game file and open it in Chrome or Edge.':'The microphone is blocked. Click the 🔒 or 🎤 icon next to the address bar, allow the microphone, then try again.'}
 function lis(){say(SEN[M3]);const ws=$$('#s .w');ws.forEach((e,j)=>setTimeout(()=>{ws.forEach(x=>x.classList.remove('cur'));e.classList.add('cur')},350+j*430));setTimeout(()=>ws.forEach(x=>x.classList.remove('cur')),350+ws.length*430)}
 function tgt(){const ws=$$('#s .w');return{ws,tg:ws.map(e=>nrm(e.textContent).join(''))}}
 function stat(h,on){const e=$('#h');if(e)e.innerHTML=`<span class="mic ${on?'on':''}"><i></i><i></i><i></i></span>${h}`}
-function rec(){const i=M3,b=$('#mb');if(LS){LS.stop=1;try{LS.r.stop()}catch(e){}return}
-if(R.res[i]){delete R.res[i];return m3r()}
+async function rec(){const i=M3,b=$('#mb');if(LS){const s=LS;s.stop=1;if(s.r){try{s.r.stop()}catch(e){}}else{stopL();m3r()}return}
+if(R.res[i]){delete R.res[i];if(SR)delete R.man[i];return m3r()}
 if(b.dataset.chk)return chk();if(!SR||R.man[i])return manual();
-hush();const s=LS={i,fin:[],interim:'',stop:0,heard:0,fatal:'',n:0,t0:Date.now(),r:null};mDuck(0);
-let r;try{r=new SR}catch(e){LS=null;mDuck(1);return manual()}
+hush();const s=LS={i,fin:[],interim:'',stop:0,heard:0,fatal:'',n:0,t0:Date.now(),r:null,stream:null,src:null,raf:0,peak:0,mic:0};mDuck(0);
+b.textContent='⏹ Done';stat('🎤 Please allow the microphone…');
+const md=navigator.mediaDevices,pol=document.permissionsPolicy||document.featurePolicy;
+if(pol&&pol.allowsFeature&&!pol.allowsFeature('microphone')){s.fatal='not-allowed';return failL(s)}
+if(md&&md.getUserMedia){try{const st=await md.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}});if(LS!==s){st.getTracks().forEach(t=>t.stop());return}s.mic=1;if(MOB)st.getTracks().forEach(t=>t.stop());else{s.stream=st;meter(s)}}
+catch(e){if(LS!==s)return;s.fatal=/NotFound|DevicesNotFound|Overconstrained/.test(e.name)?'audio-capture':/Security|Type/.test(e.name)?'insecure':'not-allowed';return failL(s)}}
+else if(!isSecureContext){s.fatal='insecure';return failL(s)}
+if(s.stop)return finishL(s);s.t0=Date.now();
+let r;try{r=new SR}catch(e){s.fatal='start';return failL(s)}
 s.r=r;r.lang='en-US';r.interimResults=true;r.continuous=!MOB;r.maxAlternatives=4;
 r.onsoundstart=r.onspeechstart=()=>{if(LS!==s)return;s.heard=1;if(!s.fin.length&&!s.interim)stat('👂 I can hear your voice!',1)};
 r.onresult=e=>{if(LS!==s)return;s.heard=1;let it='';for(let k=e.resultIndex;k<e.results.length;k++){const x=e.results[k];if(x.isFinal)s.fin.push({t:x[0].transcript,c:x[0].confidence||0,a:[...x].slice(1).map(y=>y.transcript)});else it+=x[0].transcript+' '}s.interim=it;live(s)};
 r.onerror=e=>{if(e.error!='no-speech'&&e.error!='aborted')s.fatal=e.error};
 r.onend=()=>{if(LS!==s)return;if(s.fatal)return failL(s);if(!s.stop&&s.n++<40&&Date.now()-s.t0<45000){try{r.start();return}catch(e){return setTimeout(()=>{if(LS!==s)return;try{r.start()}catch(e2){finishL(s)}},300)}}finishL(s)};
-try{r.start();b.textContent='⏹ Done';stat('🎤 Listening… read now!')}catch(e){s.fatal='start';failL(s)}}
+try{r.start();stat('🎤 Listening… read now!')}catch(e){s.fatal='start';failL(s)}}
 function live(s){const {ws,tg}=tgt(),st=evalRead(tg,s.fin,s.interim);ws.forEach((e,k)=>e.className='w'+(st[k]=='ok'?' ok':''));
 stat('🦆 I hear: '+(s.fin.map(f=>f.t).join(' ')+' '+s.interim).trim(),1);if(!s.interim&&st.every(x=>x=='ok')&&!s.stop){s.stop=1;try{s.r.stop()}catch(e){}}}
-function endL(){LS=null;mDuck(1);const b=$('#mb');if(b)b.textContent='🎤 Start';return b}
-function failL(s){if(!endL())return;const c=s.fatal;toast(c=='audio-capture'?'No microphone found. Use Duck check instead.':c=='network'?'The listening service is not reachable. Use Duck check instead.':'Mic is blocked here. Use Duck check instead.');manual()}
+function endL(){if(LS)relM(LS);LS=null;mDuck(1);const b=$('#mb');if(b)b.textContent='🎤 Start';return b}
+function failL(s){if(!endL())return;const c=s.fatal;toast(c=='audio-capture'?'No microphone found. Use Duck check instead.':c=='network'?'The listening service is not reachable. Use Duck check instead.':'Mic is blocked here. Use Duck check instead.');manual(micWhy(c,s.mic))}
 function finishL(s){if(!endL())return;if(s.interim.trim())s.fin.push({t:s.interim,c:0,a:[]});
 if(!s.fin.length){$('#h').textContent=s.heard?'I heard a sound, but no words. Come closer to the microphone and speak up!':'No sound came from the microphone. Check that it is switched on and allowed.';return toast('I did not hear you. Try again!')}
 done(evalRead(tgt().tg,s.fin,''),1)}
-function manual(){R.man[M3]=1;$('#h').textContent='Tap the words that were hard for you. Then press Duck check.';$$('#s .w').forEach(e=>{e.classList.add('tp');e.onclick=()=>e.classList.toggle('no')});const b=$('#mb');b.textContent='🦆 Duck check';b.dataset.chk=1}
+function manual(why){R.man[M3]=1;const h=$('#h');h.textContent='';if(why){const b=document.createElement('b');b.textContent='⚠️ '+why;h.appendChild(b);h.appendChild(document.createElement('br'))}h.appendChild(document.createTextNode('Tap the words that were hard for you. Then press Duck check.'));$$('#s .w').forEach(e=>{e.classList.add('tp');e.onclick=()=>e.classList.toggle('no')});const b=$('#mb');b.textContent='🦆 Duck check';b.dataset.chk=1}
 function chk(){done($$('#s .w').map(e=>e.classList.contains('no')?'no':'ok'),0)}
 function done(st,mic){const i=M3,wd=$$('#s .w').map(e=>e.textContent.replace(/[^\w’']/g,'')),n=st.length,miss=wd.filter((_,k)=>st[k]=='no'),alm=wd.filter((_,k)=>st[k]=='al');
 R.sc[i]=Math.max(0,Math.round((n-miss.length-alm.length*.5)/n*4));R.ok[i]=1;const pr=[...new Set([...alm,...miss])],nxt=[0,1,2].find(k=>!R.ok[k]);
